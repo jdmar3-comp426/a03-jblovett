@@ -10,7 +10,7 @@
  */
 export function sumToString(a, b) {
     // pass to string constructor, or just as is?
-    return `${a + b}`;
+    return `${a} + ${b} = ${a + b}`;
 }
 
 
