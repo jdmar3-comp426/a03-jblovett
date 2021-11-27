@@ -74,6 +74,7 @@ export function getStatistics(array) {
     return {
         length: lengthy,
         sum: sumy,
+        mean: meany,
         median: mediany,
         min: miny,
         max: maxy,
