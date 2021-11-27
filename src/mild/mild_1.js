@@ -46,7 +46,7 @@ export function maxAndMin(numbers) {
     // sort ascending?
     let maxi = Math.max(...numbers);
     let mini = Math.min(...numbers);
-    return {min: mini, max: maxi};
+    return {max: maxi, min: mini};
 }
 
 /**
