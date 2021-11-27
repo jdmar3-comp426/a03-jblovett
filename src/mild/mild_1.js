@@ -26,7 +26,7 @@ export function sumToString(a, b) {
  */
 export function getIncreasingArray(startNumber, endNumber) {
     const array = []
-    for(let i = startNumber; i < endNumber, i++;) {
+    for(let i = startNumber; i <= endNumber; i++) {
         array.push(i);
     }
     return array;
@@ -47,8 +47,6 @@ export function maxAndMin(numbers) {
     let maxi = Math.max(...numbers);
     let mini = Math.min(...numbers);
     return {min: mini, max: maxi};
-
-
 }
 
 /**
@@ -62,16 +60,13 @@ export function maxAndMin(numbers) {
  *
  */
 export function countArray(array) {
-    // freq map
-    // this could def be more concise
     let returned = {};
-    for(val in array) {
-        if (val in returned) {
-            returned[val] = returned[val] + 1;
+    for(let index in array) {
+        if (array[index] in returned) {
+            returned[array[index]] = returned[array[index]] + 1;
         } else {
-            returned[val] = 1;
+            returned[array[index]] = 1;
         }
-
     }
-
+    return returned
 }
