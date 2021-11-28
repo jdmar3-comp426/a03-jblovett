@@ -31,7 +31,6 @@ function groupBy(objectArray) {
         });
       }
       if (!found) {
-        console.log('not found!')
         acc.push({make: obj.make, hybrids: [obj.id]});
       }
       return acc;
