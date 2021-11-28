@@ -62,7 +62,9 @@ function groupByProp(objectArray, property) {
 
             avg_city_not_hybrid = avg_city_not_hybrid + current.city_mpg;   
         });
-        acc[key] = {hybrid: {city: avg_city_hybrid, highway: avg_highway_hybrid}, notHybrid: {city: avg_city_not_hybrid, highway: avg_highway_not_hybrid}};
+        let len = hybridFiltered.length;
+        let len_not = notHybridFiltered.length;
+        acc[key] = {hybrid: {city: avg_city_hybrid / len, highway: avg_highway_hybrid / len}, notHybrid: {city: avg_city_not_hybrid / len_not, highway: avg_highway_not_hybrid / len_not}};
       }
       
       
