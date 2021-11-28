@@ -13,6 +13,65 @@ let avg_city = 0;
 let avg_highway = 0;
 (mpg_data.forEach(current => (avg_highway = avg_highway + current.highway_mpg)));
 
+
+function groupBy(objectArray) {
+    return objectArray.reduce(function (acc, obj, index) {
+      let found = false;
+      
+      if (!acc[0]) {
+        acc[index] = {make: obj.make, hybrids: [obj.id]};
+        return acc;
+        
+      } else {
+        acc.forEach(val => {
+          if (val.make === obj.make) {
+            val.hybrids.push(obj.id);
+            found = true;
+          }
+        });
+      }
+      if (!found) {
+        console.log('not found!')
+        acc.push({make: obj.make, hybrids: [obj.id]});
+      }
+      return acc;
+    }, [])
+}
+
+let hybs = groupBy(mpg_data.filter(val => val.hybrid));
+
+
+function groupByProp(objectArray, property) {
+    return objectArray.reduce(function (acc, obj, index) {
+      let key = obj[property]
+      if (!acc[key]) {
+        let hybridFiltered = objectArray.filter(val => val.year === key && val.hybrid);
+        let avg_highway_hybrid = 0;
+        let avg_city_hybrid = 0;
+        hybridFiltered.forEach(current => {
+            avg_highway_hybrid = avg_highway_hybrid + current.highway_mpg;
+            avg_city_hybrid = avg_city_hybrid + current.city_mpg;
+        });
+        
+         
+        let avg_highway_not_hybrid = 0;
+        let avg_city_not_hybrid = 0;
+        
+        let notHybridFiltered = objectArray.filter(val => val.year === key && !val.hybrid);
+        notHybridFiltered.forEach(current => {
+            avg_highway_not_hybrid = avg_highway_not_hybrid + current.highway_mpg;
+
+            avg_city_not_hybrid = avg_city_not_hybrid + current.city_mpg;   
+        });
+        acc[key] = {hybrid: {city: avg_city_hybrid, highway: avg_highway_hybrid}, notHybrid: {city: avg_city_not_hybrid, highway: avg_highway_not_hybrid}};
+      }
+      
+      
+      return acc
+    }, {})
+}
+
+let avgs = groupByProp(mpg_data, 'year');
 /**
  * This object contains data that has to do with every car in the `mpg_data` object.
  *
@@ -93,65 +152,9 @@ export const allCarStats = {
  *
  * }
  */
-//  function groupBy(objectArray) {
-//     return objectArray.reduce(function (acc, obj, index) {
-//       let found = false;
-      
-//       if (!acc[0]) {
-//         acc[index] = {make: obj.make, hybrids: [obj.id]};
-//         return acc;
-        
-//       } else {
-//         acc.forEach(val => {
-//           if (val.make === obj.make) {
-//             val.hybrids.push(obj.id);
-//             found = true;
-//           }
-//         });
-//       }
-//       if (!found) {
-//         console.log('not found!')
-//         acc.push({make: obj.make, hybrids: [obj.id]});
-//       }
-//       return acc;
-//     }, [])
-//   }
 
-// let hybs = groupBy(mpg_data.filter(val => val.hybrid));
-
-
-// function groupByProp(objectArray, property) {
-//     return objectArray.reduce(function (acc, obj, index) {
-//       let key = obj[property]
-//       if (!acc[key]) {
-//         let hybridFiltered = objectArray.filter(val => val.year === key && val.hybrid);
-//         let avg_highway_hybrid = 0;
-//         let avg_city_hybrid = 0;
-//         hybridFiltered.forEach(current => {
-//             avg_highway_hybrid = avg_highway_hybrid + current.highway_mpg;
-//             avg_city_hybrid = avg_city_hybrid + current.city_mpg;
-//         });
-        
-         
-//         let avg_highway_not_hybrid = 0;
-//         let avg_city_not_hybrid = 0;
-        
-//         let notHybridFiltered = objectArray.filter(val => val.year === key && !val.hybrid);
-//         notHybridFiltered.forEach(current => {
-//             avg_highway_not_hybrid = avg_highway_not_hybrid + current.highway_mpg;
-
-//             avg_city_not_hybrid = avg_city_not_hybrid + current.city_mpg;   
-//         });
-//         acc[key] = {hybrid: {city: avg_city_hybrid, highway: avg_highway_hybrid}, notHybrid: {city: avg_city_not_hybrid, highway: avg_highway_not_hybrid}};
-//       }
-      
-      
-//       return acc
-//     }, {})
-//   }
-// let avgs = groupByProp(mpg_data, 'year');
 
 export const moreStats = {
-    makerHybrids: undefined,
-    avgMpgByYearAndHybrid: undefined
+    makerHybrids: hybs,
+    avgMpgByYearAndHybrid: avgs
 };
