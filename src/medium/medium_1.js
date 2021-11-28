@@ -36,7 +36,7 @@ export function getMedian(array) {
         let index_2 = index_1 - 1;
         median = (array[index_1] + array[index_2]) / 2;
     } else {
-        let index = Math.ceil(length / 2);
+        let index = Math.floor(length / 2);
         median = array[index];
     }
     return median;
