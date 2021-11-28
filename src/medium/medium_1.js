@@ -27,7 +27,12 @@ export function getSum(array) {
  */
 export function getMedian(array) {
     // first, sort in ascending order
-    array.sort();
+    array.sort((a, b) => {
+        if (a == b) {
+            return 0;
+        }
+        return a < b ? -1 : 1;  
+    });
     let median = 0;
     let length = array.length;
     if (length % 2 == 0) {
