@@ -67,7 +67,7 @@ export function getStatistics(array) {
     let mediany = getMedian(array);
 
     // mean = sum / length
-    let meany = sumy / mediany;
+    let meany = sumy / lengthy;
     let miny = Math.min(...array);
     let maxy = Math.max(...array);
     let vari = variance(array, meany);
