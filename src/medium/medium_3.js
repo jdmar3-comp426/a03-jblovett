@@ -44,7 +44,21 @@ export function searchHighPower(car_data, minHorsepower, minTorque) {
  *
  */
 export function searchMpg(car_data, minCity, minHighway) {
+    let avg_city = 0;
+    car_data.forEach(current => (avg_city = avg_city + current.city_mpg));
 
+    let avg_highway = 0;
+    car_data.forEach(current => (avg_highway = avg_highway + current.highway_mpg));
+    return car_data
+        .filter(val => val.highway_mpg >= minHighway && val.city_mpg >= minCity)
+        .sort((a, b) => {
+            let a_high = a.highway_mpg;
+            let b_high= b.highway_mpg;
+            if (a_high == b_high) {
+                return 0;
+            }
+            return a_high < b_high ? 1 : -1;  
+        });
 }
 
 
