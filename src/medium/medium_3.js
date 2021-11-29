@@ -71,8 +71,8 @@ export function searchMpg(car_data, minCity, minHighway) {
  * @returns {[]} array of cars
  */
 export function searchName(car_data, searchTerm) {
-    let lower_case = searchTerm.toLowercase();
-    return car_data.filter(val => val.id.toLowercase() === lower_case);
+    let lower_case = searchTerm.toLowerCase();
+    return car_data.filter(val => val.id.toLowerCase() === lower_case);
 
 }
 
@@ -86,5 +86,15 @@ export function searchName(car_data, searchTerm) {
  * @returns {[]} an array of car objects
  */
 export function searchByYear(car_data, years) {
+    return car_data
+        .filter(val => val.horsepower >= minHorsepower && val.torque >= minTorque)
+        .sort((a, b) => {
+            let a_horse = a.horsepower;
+            let b_horse = b.horsepower;
+            if (a_horse == b_horse) {
+                return 0;
+            }
+            return a_horse < b_horse ? 1 : -1;  
+        });
 
 }
