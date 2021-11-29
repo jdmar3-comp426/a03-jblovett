@@ -18,7 +18,18 @@ queries.
  *
  */
 export function searchHighPower(car_data, minHorsepower, minTorque) {
-
+    // filter car_data by params
+    // reverse sort
+    return car_data
+        .filter(val => val.horsepower >= minHorsepower && val.torque >= minTorque)
+        .sort((a, b) => {
+            let a_horse = a.horsepower;
+            let b_horse = b.horsepower;
+            if (a_horse == b_horse) {
+                return 0;
+            }
+            return a_horse < b_horse ? 1 : -1;  
+        });
 }
 
 
