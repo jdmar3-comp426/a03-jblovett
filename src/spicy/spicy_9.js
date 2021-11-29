@@ -99,13 +99,15 @@ export const tenTimesFifty = () => {
  *    everyEven([1, 1, 0, 1, 1], x => x === 1)  <--  returns false
  */
 export const everyEven = (arr, test) => {
-    return arr.forEach((val, i) => {
+    let res = false;
+    arr.forEach((val, i) => {
         if (i % 2 === 0) {
             if (test(val)) {
-                return true;
+                res = true;
             }
         }
-    })
+    });
+    return res;
 };
 
 
