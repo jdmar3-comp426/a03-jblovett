@@ -105,14 +105,11 @@ export function searchName(car_data, searchTerm) {
  */
 export function searchByYear(car_data, years) {
     return car_data
-        .filter(val => val.horsepower >= minHorsepower && val.torque >= minTorque)
+        .filter(val => years.includes(val.year))
         .sort((a, b) => {
-            let a_horse = a.horsepower;
-            let b_horse = b.horsepower;
-            if (a_horse == b_horse) {
+            if (a.year == b.year) {
                 return 0;
             }
-            return a_horse < b_horse ? 1 : -1;  
+            return a.year < b.year ? 1 : -1;  
         });
-
 }
