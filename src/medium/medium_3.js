@@ -72,8 +72,26 @@ export function searchMpg(car_data, minCity, minHighway) {
  */
 export function searchName(car_data, searchTerm) {
     let lower_case = searchTerm.toLowerCase();
-    return car_data.filter(val => val.id.toLowerCase() === lower_case);
-
+    let placement_array = []
+    return car_data
+        .filter(val => {
+            let current_id = val.id.toLowerCase();
+            let res = current_id.indexOf(lower_case);
+            if (res > -1) {
+                placement_array.push(res);
+            }
+            return res > -1;
+        })
+        .map((val, index) => {
+            return {car: val, rank: placement_array[index]}
+        })
+        .sort((a, b) => {
+            if (a.rank == b.rank) {
+                return 0;
+            }
+            return a.rank < b.rank ? -1 : 1;  
+        })
+        .map(val => val.car);
 }
 
 
