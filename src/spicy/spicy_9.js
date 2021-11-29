@@ -18,7 +18,8 @@ export const repeat = (fn, n, ...params) => {
     let i = 0;
     let vals = [];
     while (i < n) {
-        vals.push(fn(params));
+        vals.push(fn(...params));
+        i++;
     }
     return vals;
 
@@ -30,7 +31,10 @@ export const repeat = (fn, n, ...params) => {
  *   10 times.
  */
 export const repeatDemo = () => {
-
+    let fn = (str) => {
+        console.log(str);
+    }
+    repeat(fn, 10, ['Hello, world!'])
 };
 
 
